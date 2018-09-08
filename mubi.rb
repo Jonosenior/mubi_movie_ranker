@@ -43,4 +43,4 @@ end
 
 films = current_mubi_films
 films = add_rating(films)
-puts films
+puts films.sort_by { |film| [film[:rating] ? 1 : 0, film[:rating]]  }.reverse
