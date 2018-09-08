@@ -2,57 +2,45 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'unirest'
-#
-#
-page_url = 'https://mubi.com/showing'
-page = Nokogiri::HTML(open(page_url))
-#
-#
-# # current_films_buttons = page.css('div#page-region a').select do |a|
-# #   a['href'] if a['href'].match('/showing/')
-# # end
-#
-film_title_elements = page.css('#page-region h2')
-film_year_elements = page.css('#page-region h3')
-titles = film_title_elements.map { |a| a.text }
-years = film_year_elements.map { |b| b.text.match(/\d{4}/) }
 
-films = (0..29).to_a.map do |i|
-  { title: titles[i],
-    year: years[i].to_s
-  }
+MUBI_URL = 'https://mubi.com/showing'
+IMDB_KEY = '47d7375b'
+
+def current_mubi_films
+  page = Nokogiri::HTML(open(MUBI_URL))
+
+  film_title_elements = page.css('#page-region h2')
+  film_year_elements = page.css('#page-region h3')
+  film_title_buttons = page.css('#page-region a').select { |a| a['href'] if a['href'].match(/showing/)}
+
+  titles = film_title_elements.map { |a| a.text }
+  years = film_year_elements.map { |b| b.text.match(/\d{4}/) }
+  ascii_dashed_titles = film_title_buttons.map { |a|  a['href'].sub('/showing/', '') }
+
+  films = (0..29).to_a.map do |i|
+    { title: titles[i],
+      year: years[i].to_s,
+      ascii_dashed_title: ascii_dashed_titles[i]
+    }
+  end
 end
 
-# puts films
-films.each { |film| film.each { |key, value| puts "#{key}: #{value}\n\n" } }
+def return_imdb_rating(film)
+  title = film[:ascii_dashed_title]
+  year = film[:year]
 
+  url = "http://www.omdbapi.com/?apikey=#{IMDB_KEY}&t=#{title}&y=#{year}"
+  response = Unirest.get url
+  rating = response.body["imdbRating"]
+end
 
-# film_year_elements.select { |b| b.text
-#
-# film_title_elements.each { |a| puts a.text }
-# film_year_elements.each { |a| puts a.text }
+def add_rating(films)
+  films.each do |film|
+    rating = return_imdb_rating(film)
+    film[:rating] = rating
+  end
+end
 
-#current_films_titles.each {|a| puts a.text }
-#
-#
-# titles = current_films_buttons.map do |a|
-#   a['href'].sub('/showing/', '')
-# end
-#
-# imdb_key = '47d7375b'
-#
-# titles.each do |title|
-#   url = "http://www.omdbapi.com/?apikey=#{imdb_key}&t=#{title}"
-#   response = Unirest.get url
-#   rating = response.body["imdbRating"]
-#   puts "#{title}, #{rating}"
-# end
-#
-# # IMDB api call
-#
-#
-# url = "http://www.omdbapi.com/?apikey=#{imdb_key}&t=the-wave"
-# response = Unirest.get url
-# # puts response.body["Title"]
-# # puts response.body["imdbRating"]
-# # puts response.body["Ratings"]["Source"]
+films = current_mubi_films
+films = add_rating(films)
+puts films
