@@ -2,6 +2,17 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'unirest'
+require 'sinatra'
+require 'erb'
+require 'sinatra/reloader' if development?
+
+
+get '/' do
+  films = current_mubi_films
+  films = add_rating(films)
+  @films = films.sort_by { |film| [film[:rating] ? 1 : 0, film[:rating]]  }.reverse
+  erb :main
+end
 
 MUBI_URL = 'https://mubi.com/showing'
 IMDB_KEY = '47d7375b'
@@ -40,7 +51,3 @@ def add_rating(films)
     film[:rating] = rating
   end
 end
-
-films = current_mubi_films
-films = add_rating(films)
-puts films.sort_by { |film| [film[:rating] ? 1 : 0, film[:rating]]  }.reverse
