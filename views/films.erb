@@ -1,0 +1,5 @@
+<h1>Mubi Films</h1>
+<% @films.each do |film| %>
+  <h3><%= film[:title] %></h3>
+  <p><%= film[:rating] %></p>
+<% end %>
