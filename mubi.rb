@@ -11,7 +11,7 @@ get '/' do
   films = current_mubi_films
   films = add_rating(films)
   @films = films.sort_by { |film| [film[:rating] ? 1 : 0, film[:rating]]  }.reverse
-  erb :main
+  erb :films
 end
 
 MUBI_URL = 'https://mubi.com/showing'
