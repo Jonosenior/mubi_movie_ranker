@@ -12,36 +12,36 @@
 
   <body>
 
-    <div class="container-narrow container-fluid">
+    <div class="container-narrow">
 
-      <div class="masthead">
+      <div class="masthead" id="masthead">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">About</a></li>
+          <!-- <li><button type="button" class="btn btn-default">About</button></li> -->
+          <li><a class="btn btn-default" href="#">About</a></li>
         </ul>
-        <h3 class="muted">Mubi Movie Ranker</h3>
+        <h3 class="navbar-title">Mubi Movie Ranker</h3>
+        <!-- <a class="navbar-brand" href="#">Navbar w/ text</a> -->
       </div>
 
       <hr>
 
-      <h1 class="display-1 text-center title"><u>Mubi Movie Ranker</u></h1>
+      <h1 class="display-1 text-center title" id="top-title"><u>Mubi Movie Ranker</u></h1>
       <p class="lead text-center">The movies on Mubi, ranked</p>
-
-      <div class="container">
         <% @films.each do |film| %>
           <div class="row">
-            <div class="col-md-5 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3">
               <div class="article">
-                <h3 class="title"><%= film[:title] %></h3>
+                <h4 class="title"><%= film[:title] %></h4>
                 <p><%= film[:rating] %></p>
                 <p><%= film[:plot] %></p>
               </div>
             </div>
           </div>
         <% end %>
-      </div>
-      <hr>
-      <div class="footer">
-        <p>© Jonathan Senior 2018</p>
+        <hr>
+        <div class="footer">
+          <p>© Jonathan Senior 2018</p>
+        </div>
       </div>
 
     </div>
