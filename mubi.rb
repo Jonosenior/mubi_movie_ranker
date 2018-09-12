@@ -45,9 +45,21 @@ def return_imdb_rating(film)
   rating = response.body["imdbRating"]
 end
 
+def return_imdb_plot(film)
+  title = film[:ascii_dashed_title]
+  year = film[:year]
+
+  url = "http://www.omdbapi.com/?apikey=#{IMDB_KEY}&t=#{title}&y=#{year}"
+  response = Unirest.get url
+  rating = response.body["Plot"]
+end
+
+
 def add_rating(films)
   films.each do |film|
     rating = return_imdb_rating(film)
+    plot = return_imdb_plot(film)
     film[:rating] = rating
+    film[:plot] = plot
   end
 end
