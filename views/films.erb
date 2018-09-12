@@ -16,17 +16,25 @@
 
       <div class="masthead" id="masthead">
         <ul class="nav nav-pills pull-right">
-          <!-- <li><button type="button" class="btn btn-default">About</button></li> -->
           <li><a class="btn btn-default" href="#">About</a></li>
         </ul>
         <h3 class="navbar-title">Mubi Movie Ranker</h3>
-        <!-- <a class="navbar-brand" href="#">Navbar w/ text</a> -->
       </div>
 
       <hr>
 
-      <h1 class="display-1 text-center title" id="top-title"><u>Mubi Movie Ranker</u></h1>
-      <p class="lead text-center">The movies on Mubi, ranked</p>
+
+      <div class="jumbotron">
+        <h1 class="display-4">Mubi Movie Ranker</h1>
+        <br><br><br>
+        <p>The movies on Mubi, ranked.</p>
+      </div><br><br>
+
+
+      <!-- <h1 class="display-1 text-center title" id="top-title"><u>Mubi Movie Ranker</u></h1>
+      <p class="lead text-center">The movies on Mubi, ranked</p> -->
+
+
         <% @films.each do |film| %>
           <div class="row">
             <div class="col-md-6 col-md-offset-3">
