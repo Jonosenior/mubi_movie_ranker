@@ -16,11 +16,13 @@
   <div class="container">
     <% @films.each do |film| %>
       <div class="row">
-        <div class="article">
-          <h3><%= film[:title] %></h3>
-          <p><%= film[:rating] %></p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        <div class="col-md-6 col-md-offset-3">
+          <div class="article">
+            <h3><%= film[:title] %></h3>
+            <p><%= film[:rating] %></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+          </div>
         </div>
       </div>
     <% end %>
