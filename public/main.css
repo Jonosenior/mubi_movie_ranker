@@ -5,8 +5,8 @@ body {
 /* Custom title and p font */
 .title {
   font-family: 'Asap', sans-serif;
-	font-size: 40px;
-	line-height: 55px;
+	font-size: 20px;
+	line-height: 20px;
 }
 
 p {
@@ -18,6 +18,20 @@ p {
 .row {
   margin: auto;
 }
+
+.navbar-title {
+  vertical-align: middle;
+}
+
+#top-title {
+  font-size: 50px;
+}
+
+.lead {
+  line-height: 84px;
+}
+
+
 
 
 /* Custom container */
