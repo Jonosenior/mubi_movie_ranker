@@ -10,8 +10,12 @@ describe MubiMovieRanker do
       expect(response.status).to eq 200
     end
 
-    it 'returns 30 Mubi film titles' do
+    it 'contains 30 film titles' do
       expect(response.body).to have_tag('a.film-title', count: 30)
+    end
+
+    it 'links to Mubi in each film title' do
+      expect(response.body.to have_link(href: '/mubi/')
     end
   end
 end
