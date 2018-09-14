@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Mubi Movie Ranker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nobile" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+
+      <div class="masthead" id="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a class="btn btn-default" href="#">About</a></li>
+        </ul>
+        <h3 class="navbar-title">Mubi Movie Ranker</h3>
+      </div>
+
+      <hr>
+
+
+      <div class="jumbotron title">
+        <h1 class="display-4">Mubi Movie Ranker</h1>
+        <br><br><br>
+        <p>The movies on Mubi, ranked.</p>
+      </div><br><br>
+
+
+      <!-- <h1 class="display-1 text-center title" id="top-title"><u>Mubi Movie Ranker</u></h1>
+      <p class="lead text-center">The movies on Mubi, ranked</p> -->
+
+
+        <% @films.each do |film| %>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="article">
+                <h4 class="title"><a class="film-title" href="https://mubi.com/showing/<%=film[:ascii_dashed_title]%>/watch"><%= film[:title] %></a></h4>
+                <p><%= film[:rating] %></p>
+                <p><%= film[:plot] %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <hr>
+        <div class="footer">
+          <p>© Jonathan Senior 2018</p>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
