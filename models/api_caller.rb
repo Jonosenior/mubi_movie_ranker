@@ -1,10 +1,14 @@
 # Makes API calls - the default is to the IMDb API.
 class APICaller
-  attr_reader :films
 
   def initialize(films)
     @key = '47d7375b'
     @films = films
+  end
+
+  def films
+    add_api_info_to_films
+    @films
   end
 
   def add_api_info_to_films
