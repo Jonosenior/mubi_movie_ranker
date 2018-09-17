@@ -27,4 +27,10 @@ describe MubiMovieRanker do
     it 'displays highest-rated film at the top'
     it 'displays films with no rating at the bottom'
   end
+
+  context 'GET to "/about"' do
+    it 'returns status 200 OK'
+    it 'returns some text content'
+    it 'links back to the main page'
+  end
 end
