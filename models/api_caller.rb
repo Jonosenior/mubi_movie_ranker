@@ -1,31 +1,33 @@
 # Makes API calls - the default is to the IMDb API.
 class APICaller
-  def initialize(args)
-    @key = args.fetch(:key, '47d7375b')
-    @films = args.fetch(:films)
-    @url = args.fetch(:url, "http://www.omdbapi.com/?apikey=#{@key}&t=#{title}&y=#{year}")
+  attr_reader :films
+
+  def initialize(films)
+    @key = '47d7375b'
+    @films = films
   end
 
-  def add_rating(films)
-    films.each do |film|
-      rating_and_plot(film)
-      film[:rating] = rating_and_plot[:rating]
-      film[:plot] = rating_and_plot[:plot]
+  def add_api_info_to_films
+    @films.each do |film|
+      api_info = return_rating_and_plot(film)
+      film[:rating] = api_info[:rating]
+      film[:plot] = api_info[:plot]
     end
   end
 
-  def rating_and_plot(film)
+  def return_rating_and_plot(film)
     title = film[:ascii_dashed_title]
     year = film[:year]
 
-    response = Unirest.get @url
+    response = Unirest.get "http://www.omdbapi.com/?apikey=#{@key}&t=#{title}&y=#{year}"
 
     rating = response.body['imdbRating']
     plot = response.body['Plot']
     # (plot == nil || plot == "N/A") ?
 
-    Hash.new { rating: rating, plot: plot }
+    Hash[rating: rating, plot: plot]
   end
+end
 
   # def return_imdb_rating(film)
   #   title = film[:ascii_dashed_title]
@@ -47,4 +49,4 @@ class APICaller
   #   response.body['Plot']
   # end
 
-end
+# end
